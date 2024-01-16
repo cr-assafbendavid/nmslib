@@ -148,9 +148,9 @@ int main(int argc, char *argv[]) {
 
   string queryObjStr = ss.str();
 
-  ::apache::thrift::stdcxx::shared_ptr<TTransport>   socket(new TSocket(host, port));
-  ::apache::thrift::stdcxx::shared_ptr<TTransport>   transport(new TBufferedTransport(socket));
-  ::apache::thrift::stdcxx::shared_ptr<TProtocol>    protocol(new TBinaryProtocol(transport));
+  ::std::shared_ptr<TTransport>   socket(new TSocket(host, port));
+  ::std::shared_ptr<TTransport>   transport(new TBufferedTransport(socket));
+  ::std::shared_ptr<TProtocol>    protocol(new TBinaryProtocol(transport));
   QueryServiceClient              client(protocol);
 
   try {

@@ -62,6 +62,7 @@ class VectorSpace : public Space<dist_t> {
   virtual bool ApproxEqual(const Object& obj1, const Object& obj2) const;
 
   virtual Object* CreateObjFromVect(IdType id, LabelType label, const std::vector<dist_t>& InpVect) const;
+  virtual Object* CreateObjFromUint32Vect(IdType id, LabelType label, const std::vector<uint32_t>& InpVect) const;
   virtual size_t GetElemQty(const Object* object) const = 0;
   virtual void CreateDenseVectFromObj(const Object* obj, dist_t* pVect,
                                  size_t nElem) const = 0;

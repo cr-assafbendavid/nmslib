@@ -184,7 +184,7 @@ setup(
  support for non-metric space searching.""",
     ext_modules=ext_modules,
     install_requires=dep_list,
-    setup_requires=dep_list,
+    # setup_requires=dep_list,
     cmdclass={'build_ext': BuildExt},
     test_suite="tests",
     zip_safe=False,

@@ -31,6 +31,7 @@
 #include "factory/space/space_ab_diverg.h"
 #include "factory/space/space_renyi_diverg.h"
 #include "factory/space/space_sparse_jaccard.h"
+#include "factory/space/space_hamming.h"
 #if defined(WITH_EXTRAS)
 #include "factory/space/space_sqfd.h"
 #endif
@@ -38,6 +39,8 @@
 namespace similarity {
 
 inline void initSpaces() {
+  REGISTER_SPACE_CREATOR(float, SPACE_HAMMING, CreateHamming)
+
   // Registering a dummy space
   REGISTER_SPACE_CREATOR(int,    SPACE_DUMMY,  CreateDummy)
   REGISTER_SPACE_CREATOR(float,  SPACE_DUMMY,  CreateDummy)

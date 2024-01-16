@@ -75,6 +75,24 @@ class Object {
     }
   }
 
+  Object(char *buffer, IdType id, LabelType label, size_t datalength, const void* data) {
+    buffer_ = buffer;
+    CHECK(buffer_ != NULL);
+    memory_allocated_ = false;
+    char* ptr = buffer_;
+    memcpy(ptr, &id, ID_SIZE);
+    ptr += ID_SIZE;
+    memcpy(ptr, &label, LABEL_SIZE);
+    ptr += LABEL_SIZE;
+    memcpy(ptr, &datalength, DATALENGTH_SIZE);
+    ptr += DATALENGTH_SIZE;
+    if (data != NULL) {
+      memcpy(ptr, data, datalength);
+    } else {
+      memset(ptr, 0, datalength);
+    }
+  }
+
   ~Object() {
     if (memory_allocated_) {
       delete[] buffer_;

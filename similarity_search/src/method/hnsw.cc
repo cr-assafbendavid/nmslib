@@ -177,15 +177,14 @@ namespace similarity {
         int skip_optimized_index = 0;
         pmgr.GetParamOptional("skip_optimized_index", skip_optimized_index, 0);
 
-        LOG(LIB_INFO) << "M                   = " << M_;
-        LOG(LIB_INFO) << "indexThreadQty      = " << indexThreadQty_;
-        LOG(LIB_INFO) << "efConstruction      = " << efConstruction_;
-        LOG(LIB_INFO) << "maxM			          = " << maxM_;
-        LOG(LIB_INFO) << "maxM0			          = " << maxM0_;
-
-        LOG(LIB_INFO) << "mult                = " << mult_;
-        LOG(LIB_INFO) << "skip_optimized_index= " << skip_optimized_index;
-        LOG(LIB_INFO) << "delaunay_type       = " << delaunay_type_;
+        LOG(LIB_INFO) << "M                    = " << M_;
+        LOG(LIB_INFO) << "indexThreadQty       = " << indexThreadQty_;
+        LOG(LIB_INFO) << "efConstruction       = " << efConstruction_;
+        LOG(LIB_INFO) << "maxM                 = " << maxM_;
+        LOG(LIB_INFO) << "maxM0                = " << maxM0_;
+        LOG(LIB_INFO) << "mult                 = " << mult_;
+        LOG(LIB_INFO) << "skip_optimized_index = " << skip_optimized_index;
+        LOG(LIB_INFO) << "delaunay_type        = " << delaunay_type_;
 
         SetQueryTimeParams(getEmptyParams());
 
@@ -315,7 +314,7 @@ namespace similarity {
         enterpointId_ = enterpoint_->getId();
 
         if (skip_optimized_index) {
-            LOG(LIB_INFO) << "searchMethod			  = " << searchMethod_;
+            LOG(LIB_INFO) << "searchMethod         = " << searchMethod_;
             pmgr.CheckUnused();
             return;
         }
@@ -367,12 +366,12 @@ namespace similarity {
             LOG(LIB_INFO) << "No appropriate custom distance function for " << space_.StrDesc();
             // if (searchMethod_ != 0 && searchMethod_ != 1)
             searchMethod_ = 0;
-            LOG(LIB_INFO) << "searchMethod			  = " << searchMethod_;
+            LOG(LIB_INFO) << "searchMethod         = " << searchMethod_;
             pmgr.CheckUnused();
             return; // No optimized index
         }
         pmgr.CheckUnused();
-        LOG(LIB_INFO) << "searchMethod			  = " << searchMethod_;
+        LOG(LIB_INFO) << "searchMethod         = " << searchMethod_;
         memoryPerObject_ = dataSectionSize + friendsSectionSize;
 
         size_t total_memory_allocated = (memoryPerObject_ * ElList_.size());
@@ -468,8 +467,8 @@ namespace similarity {
 
         pmgr.CheckUnused();
         LOG(LIB_INFO) << "Set HNSW query-time parameters:";
-        LOG(LIB_INFO) << "ef(Search)         =" << ef_;
-        LOG(LIB_INFO) << "algoType           =" << searchAlgoType_;
+        LOG(LIB_INFO) << "ef(Search)           = " << ef_;
+        LOG(LIB_INFO) << "algoType             = " << searchAlgoType_;
     }
 
     template <typename dist_t>

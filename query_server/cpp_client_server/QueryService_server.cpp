@@ -25,7 +25,7 @@
 #include <thrift/transport/TServerSocket.h>
 #include <thrift/transport/TBufferTransports.h>
 #include <thrift/concurrency/ThreadManager.h>
-#include <thrift/concurrency/PosixThreadFactory.h>
+#include <thrift/concurrency/ThreadFactory.h>
 #include <thrift/server/TThreadPoolServer.h>
 
 #include <boost/program_options.hpp>
@@ -592,18 +592,18 @@ int main(int argc, char *argv[]) {
     LOG(LIB_FATAL) << "Unknown distance value type: " << DistType;
   }
 
-  ::apache::thrift::stdcxx::shared_ptr<QueryServiceIf> handler(queryHandler.get());
-  ::apache::thrift::stdcxx::shared_ptr<TProcessor> processor(new QueryServiceProcessor(handler));
-  ::apache::thrift::stdcxx::shared_ptr<TServerTransport> serverTransport(new TServerSocket(port));
-  ::apache::thrift::stdcxx::shared_ptr<TTransportFactory> transportFactory(new TBufferedTransportFactory());
-  ::apache::thrift::stdcxx::shared_ptr<TProtocolFactory> protocolFactory(new TBinaryProtocolFactory());
+  ::std::shared_ptr<QueryServiceIf> handler(queryHandler.get());
+  ::std::shared_ptr<TProcessor> processor(new QueryServiceProcessor(handler));
+  ::std::shared_ptr<TServerTransport> serverTransport(new TServerSocket(port));
+  ::std::shared_ptr<TTransportFactory> transportFactory(new TBufferedTransportFactory());
+  ::std::shared_ptr<TProtocolFactory> protocolFactory(new TBinaryProtocolFactory());
 
 #if SIMPLE_SERVER
   TSimpleServer server(processor, serverTransport, transportFactory, protocolFactory);
   LOG(LIB_INFO) << "Started a simple server.";
 #else
-  ::apache::thrift::stdcxx::shared_ptr<ThreadManager> threadManager = ThreadManager::newSimpleThreadManager(threadQty);
-  ::apache::thrift::stdcxx::shared_ptr<PosixThreadFactory> threadFactory = ::apache::thrift::stdcxx::shared_ptr<PosixThreadFactory>(new PosixThreadFactory());
+  ::std::shared_ptr<ThreadManager> threadManager = ThreadManager::newSimpleThreadManager(threadQty);
+  ::std::shared_ptr<ThreadFactory> threadFactory = ::std::shared_ptr<ThreadFactory>(new ThreadFactory());
   threadManager->threadFactory(threadFactory);
   threadManager->start();
   TThreadPoolServer server(processor,

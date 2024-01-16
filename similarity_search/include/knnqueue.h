@@ -71,7 +71,18 @@ class KNNQueue {
 
  private:
   typedef std::pair<dist_t, const Object*> QueueElement;
-  typedef std::priority_queue<QueueElement> QueueType;
+
+  class QueueElementCompare {
+  public:
+    bool operator()(const QueueElement& x, const QueueElement& y) {
+      if (x.first != y.first)
+        return x.first < y.first;
+      // Deterministic tie-breaking logic
+      return x.second->id() < y.second->id();
+    }
+  };
+
+  typedef std::priority_queue<QueueElement, std::vector<QueueElement>, QueueElementCompare> QueueType;
 
   QueueType queue_;
   unsigned K_;
